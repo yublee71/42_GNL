@@ -6,7 +6,7 @@
 /*   By: yublee <yublee@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:49:33 by yublee            #+#    #+#             */
-/*   Updated: 2023/11/13 17:11:34 by yublee           ###   ########.fr       */
+/*   Updated: 2023/11/13 20:02:06 by yublee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	len = ft_strlen(src);
 	if (dest >= src)
 	{
-		while (i < len)
+		while (i < n)
 		{
 			*((unsigned char *)dest + i) = *((unsigned char *)src + i);
 			i++;
@@ -31,9 +31,9 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	}
 	else
 	{
-		*((unsigned char *)dest + len) = '\0';
-		while (--len)
-			*((unsigned char *)dest + len) = *((unsigned char *)src + len);
+		*((unsigned char *)dest + n) = '\0';
+		while (--n)
+			*((unsigned char *)dest + n) = *((unsigned char *)src + n);
 	}
 	return (dest);
 }

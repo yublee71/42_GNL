@@ -6,11 +6,11 @@
 /*   By: yublee <yublee@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:50:04 by yublee            #+#    #+#             */
-/*   Updated: 2023/11/13 17:12:25 by yublee           ###   ########.fr       */
+/*   Updated: 2023/11/13 20:04:38 by yublee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include <stdlib.h>
 #include "libft.h"
 
 char	*ft_strdup(const char *s)

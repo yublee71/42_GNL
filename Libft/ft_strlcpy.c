@@ -6,7 +6,7 @@
 /*   By: yublee <yublee@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 19:07:41 by yublee            #+#    #+#             */
-/*   Updated: 2023/11/13 14:55:56 by yublee           ###   ########.fr       */
+/*   Updated: 2023/11/13 20:02:27 by yublee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	{
 		while (i < size - 1 && src[i])
 		{
-			dest[i] = src[i];
+			dst[i] = src[i];
 			i++;
 		}
-		dest[i] = '\0';
+		dst[i] = '\0';
 	}
 	while (*src++)
 		j++;

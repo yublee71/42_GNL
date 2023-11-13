@@ -6,14 +6,14 @@
 /*   By: yublee <yublee@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:50:26 by yublee            #+#    #+#             */
-/*   Updated: 2023/11/13 17:12:39 by yublee           ###   ########.fr       */
+/*   Updated: 2023/11/13 20:05:10 by yublee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
 
-static char	*ft_strcat(const char *dest, const char *src)
+static char	*ft_strcat(char *dest, const char *src)
 {
 	size_t	i;
 	size_t	j;

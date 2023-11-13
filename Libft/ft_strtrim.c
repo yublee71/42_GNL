@@ -6,7 +6,7 @@
 /*   By: yublee <yublee@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:52:14 by yublee            #+#    #+#             */
-/*   Updated: 2023/11/13 17:13:32 by yublee           ###   ########.fr       */
+/*   Updated: 2023/11/13 20:05:38 by yublee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 		i++;
 	}
 	i = 0;
-	l = 0;
 	result = malloc(count);
 	if (!result)
 		return (NULL);
