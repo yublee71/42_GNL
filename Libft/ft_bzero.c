@@ -6,15 +6,15 @@
 /*   By: yublee <yublee@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 18:39:12 by yublee            #+#    #+#             */
-/*   Updated: 2023/11/02 14:38:23 by yublee           ###   ########.fr       */
+/*   Updated: 2023/11/13 14:02:53 by yublee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 
-void	*ft_bzero(void *s, size_t n)
+void	ft_bzero(void *s, size_t n)
 {
-	unsigned char *p;
+	unsigned char	*p;
 
 	p = s;
 	while (n--)

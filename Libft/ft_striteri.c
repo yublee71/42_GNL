@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yublee <yublee@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 18:51:48 by yublee            #+#    #+#             */
-/*   Updated: 2023/11/13 16:02:45 by yublee           ###   ########.fr       */
+/*   Created: 2023/11/06 18:43:56 by yublee            #+#    #+#             */
+/*   Updated: 2023/11/06 19:55:40 by yublee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
-	size_t	i;
+	unsigned int	i;
 
 	i = 0;
-	while (s1[i] && i < n && s1[i] == s2[i])
+	while (s[i])
+	{
+		f(i, &s[i]);
 		i++;
-	if (i == n)
-		return (0);
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	}
 }
 /*
 #include <stdio.h>
 
-int main(void)
+int	main(void)
 {
-	printf("%i\n",ft_strncmp(("a", "abc", 3)); 
+	char a[] = "abc";
+
+	ft_striteri(a, myfunc);
+	printf("%s\n", a);
 }*/

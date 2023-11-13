@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yublee <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: yublee <yublee@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 14:38:51 by yublee            #+#    #+#             */
-/*   Updated: 2023/11/02 14:48:05 by yublee           ###   ########.fr       */
+/*   Created: 2023/11/06 18:52:33 by yublee            #+#    #+#             */
+/*   Updated: 2023/11/06 18:52:35 by yublee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_toupper(int c)
+int	ft_toupper(int c)
 {
-	if(c >= 'a' && c <= 'z')
-			c -= 32;
-	return (c);					
+	if (c >= 'a' && c <= 'z')
+		c -= 32;
+	return (c);
 }
-

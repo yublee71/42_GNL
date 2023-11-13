@@ -1,32 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yublee <yublee@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 18:51:48 by yublee            #+#    #+#             */
-/*   Updated: 2023/11/13 16:02:45 by yublee           ###   ########.fr       */
+/*   Created: 2023/11/06 18:34:31 by yublee            #+#    #+#             */
+/*   Updated: 2023/11/13 17:13:02 by yublee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "libft.h"
+#include <stdlib.h>
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	size_t	i;
+	char			*result;
+	size_t			len;
+	unsigned int	i;
 
 	i = 0;
-	while (s1[i] && i < n && s1[i] == s2[i])
+	len = ft_strlen(s);
+	result = malloc(len + 1);
+	if (!result)
+		return (NULL);
+	while (s[i])
+	{
+		result[i] = f(i, s[i]);
 		i++;
-	if (i == n)
-		return (0);
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	}
+	result[i] = '\0';
+	return (result);
 }
 /*
 #include <stdio.h>
 
-int main(void)
+int	main(void)
 {
-	printf("%i\n",ft_strncmp(("a", "abc", 3)); 
+//	char (*f)(unsigned int, char) = &myfunc;
+	printf("%s\n", ft_strmapi("abc", myfunc));
 }*/

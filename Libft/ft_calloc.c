@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yublee <yublee@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 18:51:48 by yublee            #+#    #+#             */
-/*   Updated: 2023/11/13 16:02:45 by yublee           ###   ########.fr       */
+/*   Created: 2023/11/06 18:44:39 by yublee            #+#    #+#             */
+/*   Updated: 2023/11/13 16:08:06 by yublee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include <stdlib.h>
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	size_t	i;
+	void	*array;
+	int		i;
+	long	i_com;
 
-	i = 0;
-	while (s1[i] && i < n && s1[i] == s2[i])
-		i++;
-	if (i == n)
-		return (0);
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	i = nmemb * size;
+	i_com = nmemb * size;
+	if (i != i_com)
+		return (NULL);
+	array = (void *)malloc(i);
+	if (!array)
+		return (NULL);
+	while (i--)
+		*((unsigned char *)array++) = 0;
+	return (array);
 }
 /*
-#include <stdio.h>
-
-int main(void)
+int	main(void)
 {
-	printf("%i\n",ft_strncmp(("a", "abc", 3)); 
+	ft_calloc(10, 2);
 }*/

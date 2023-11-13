@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yublee <yublee@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 18:51:48 by yublee            #+#    #+#             */
-/*   Updated: 2023/11/13 16:02:45 by yublee           ###   ########.fr       */
+/*   Created: 2023/11/06 19:51:49 by yublee            #+#    #+#             */
+/*   Updated: 2023/11/13 17:12:04 by yublee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "libft.h"
+#include <unistd.h>
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	ft_putstr_fd(char *s, int fd)
 {
-	size_t	i;
+	size_t	len;
 
-	i = 0;
-	while (s1[i] && i < n && s1[i] == s2[i])
-		i++;
-	if (i == n)
-		return (0);
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	len = ft_strlen(s);
+	write(fd, s, len);
 }
-/*
-#include <stdio.h>
-
-int main(void)
-{
-	printf("%i\n",ft_strncmp(("a", "abc", 3)); 
-}*/

@@ -1,37 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yublee <yublee@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 18:49:00 by yublee            #+#    #+#             */
-/*   Updated: 2023/11/06 18:49:01 by yublee           ###   ########.fr       */
+/*   Created: 2023/11/06 18:44:21 by yublee            #+#    #+#             */
+/*   Updated: 2023/11/06 18:44:24 by yublee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
-
-void	*ft_memchr(const void *s, int c, size_t n)
+int	ft_atoi(const char *nptr)
 {
-	size_t	i;
+	int	nbr;
+	int	minus;
 
-	i = 0;
-	while (i < n)
+	nbr = 0;
+	minus = 1;
+	while (*nptr == ' ' || *nptr == '\f' || *nptr == '\n'
+		|| *nptr == '\r' || *nptr == '\t' || *nptr == '\v')
+		nptr++;
+	if (*nptr == '+' || *nptr == '-')
 	{
-		if ((*(unsigned char *)s + i) == (unsigned char)c)
-			return ((void *)s + i);
-		i++;
+		if (*nptr == '-')
+			minus *= -1;
+		nptr++;
 	}
-	return (NULL);
+	while (*nptr >= '0' && *nptr <= '9')
+	{
+		nbr *= 10;
+		nbr += *nptr - '0';
+		nptr++;
+	}
+	return (minus * nbr);
 }
 /*
 #include <stdio.h>
 
-int main(void)
+int	main(void)
 {
-	char *array = "abcd";
-	int c = 'c';
-
-	printf("%s\n", (char *)ft_memchr(array, c, 3));
+	printf("%i\n", ft_atoi("       123"));
 }*/

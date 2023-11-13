@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yublee <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: yublee <yublee@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 15:06:09 by yublee            #+#    #+#             */
-/*   Updated: 2023/11/02 15:49:14 by yublee           ###   ########.fr       */
+/*   Created: 2023/11/06 18:49:55 by yublee            #+#    #+#             */
+/*   Updated: 2023/11/13 17:12:14 by yublee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
-#include "ft_h.h"
+#include "libft.h"
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -19,8 +19,8 @@ char	*ft_strchr(const char *s, int c)
 	size_t	len;
 
 	i = 0;
-	len = ft_strlen(s) + 1;
-	while (i < len)
+	len = ft_strlen(s);
+	while (i <= len)
 	{
 		if (c == *(s + i))
 			return ((char *)s + i);
@@ -28,10 +28,11 @@ char	*ft_strchr(const char *s, int c)
 	}
 	return (NULL);
 }
-
+/*
 #include <stdio.h>
 
 int	main(void)
 {
 	printf("%s\n", ft_strchr("b", 'a'));
 }
+*/
