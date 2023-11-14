@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yublee <yublee@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 18:49:08 by yublee            #+#    #+#             */
-/*   Updated: 2023/11/13 16:02:32 by yublee           ###   ########.fr       */
+/*   Created: 2023/11/01 19:07:41 by yublee            #+#    #+#             */
+/*   Updated: 2023/11/14 17:22:22 by yublee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
 	size_t	i;
+	size_t	j;
 
 	i = 0;
-	while (*((unsigned char *)s1 + i) && i < n
-		&& *((unsigned char *)s1 + i) == *((unsigned char *)s2 + i))
-		i++;
-	if (i == n)
-		return (0);
-	return (*((unsigned char *)s1 + i) - *((unsigned char *)s2 + i));
+	j = 0;
+	if (size)
+	{
+		while (i < size - 1 && src[i])
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
+	}
+	while (*src++)
+		j++;
+	return (j);
 }
-/*
-#include <stdio.h>
-
-int main(void)
-{
-	char *a = "97abc";
-	char *b = "-97abd";
-	printf("%i\n", ft_memcmp(a, b, 3));
-}*/

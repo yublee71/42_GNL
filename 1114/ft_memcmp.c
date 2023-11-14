@@ -1,40 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yublee <yublee@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 18:51:59 by yublee            #+#    #+#             */
-/*   Updated: 2023/11/13 16:04:07 by yublee           ###   ########.fr       */
+/*   Created: 2023/11/06 18:49:08 by yublee            #+#    #+#             */
+/*   Updated: 2023/11/14 14:44:02 by yublee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 
-char	*ft_strnstr(const char *big, const char *little, size_t len)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
 	size_t	i;
-	size_t	j;
 
 	i = 0;
-	if (little[i] == '\0' || len == 0)
-		return ((char *)big);
-	while (!big[i])
-	{
-		j = 0;
-		while (big[i + j] == little[j] && j < len)
-			j++;
-		if (little[j] == '\0' || j == len)
-			return ((char *)&big[i]);
+	while (i < n && *((unsigned char *)s1 + i) == *((unsigned char *)s2 + i))
 		i++;
-	}
-	return (NULL);
+	if (i == n)
+		return (0);
+	return (*((unsigned char *)s1 + i) - *((unsigned char *)s2 + i));
 }
-/*
-#include <stdio.h>
-
-int main(void)
-{
-	printf("%s\n", ft_strnstr("abc", "br", 1));
-}*/

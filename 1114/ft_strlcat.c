@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yublee <yublee@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 18:52:06 by yublee            #+#    #+#             */
-/*   Updated: 2023/11/13 17:13:14 by yublee           ###   ########.fr       */
+/*   Created: 2023/11/06 18:50:41 by yublee            #+#    #+#             */
+/*   Updated: 2023/11/14 17:46:33 by yublee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include <stdio.h>
+#include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	size_t	len;
+	size_t	i;
+	size_t	size_src;
+	size_t	size_dst;
 
-	len = ft_strlen(s);
-	while (len >= 0)
+	size_dst = ft_strlen(dst);
+	size_src = ft_strlen(src);
+	if (size_dst >= size)
+		return (size_src + size);
+	i = 0;
+	while (src[i] && i < size - size_dst - 1)
 	{
-		if (*(s + len) == c)
-			return ((char *)s + len);
-		len--;
+		dst[size_dst + i] = src[i];
+		i++;
 	}
-	return (NULL);
+	dst[size_dst + i] = '\0';
+	return (size_src + size_dst);
 }
-/*
-int	main(void)
-{
-	printf("%s\n", ft_strrchr("abcdddbdddd", '\0'));
-}*/

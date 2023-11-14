@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yublee <yublee@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/01 19:07:41 by yublee            #+#    #+#             */
-/*   Updated: 2023/11/13 20:02:27 by yublee           ###   ########.fr       */
+/*   Created: 2023/11/06 18:51:59 by yublee            #+#    #+#             */
+/*   Updated: 2023/11/14 18:34:36 by yublee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
 	size_t	i;
 	size_t	j;
 
 	i = 0;
-	j = 0;
-	if (!size)
+	if (!little[i])
+		return ((char *)big);
+	while (big[i] && i < len)
 	{
-		while (i < size - 1 && src[i])
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = '\0';
+		j = 0;
+		while (little[j] && big[i + j] == little[j] && i + j < len)
+			j++;
+		if (little[j] == '\0')
+			return ((char *)&big[i]);
+		i++;
 	}
-	while (*src++)
-		j++;
-	return (j);
+	return (NULL);
 }

@@ -1,38 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yublee <yublee@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 18:49:55 by yublee            #+#    #+#             */
-/*   Updated: 2023/11/13 17:12:14 by yublee           ###   ########.fr       */
+/*   Created: 2023/11/06 20:05:33 by yublee            #+#    #+#             */
+/*   Updated: 2023/11/13 21:12:22 by yublee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
-#include "libft.h"
+#include <unistd.h>
 
-char	*ft_strchr(const char *s, int c)
+void	ft_putnbr_fd(int n, int fd)
 {
-	size_t	i;
-	size_t	len;
+	char	temp;
 
-	i = 0;
-	len = ft_strlen(s);
-	while (i <= len)
+	temp = '0';
+	if (n < 0)
 	{
-		if (c == *(s + i))
-			return ((char *)s + i);
-		i++;
+		write(fd, "-", 1);
+		if (n <= -10)
+			ft_putnbr_fd(-(n / 10), fd);
+		ft_putnbr_fd(-(n % 10), fd);
 	}
-	return (NULL);
+	while (n >= 10)
+	{
+		ft_putnbr_fd(n / 10, fd);
+		n %= 10;
+	}
+	if (n < 10 && n >= 0)
+	{
+		temp += n;
+		write(fd, &temp, 1);
+	}
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	printf("%s\n", ft_strchr("b", 'a'));
-}
-*/
