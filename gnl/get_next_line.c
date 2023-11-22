@@ -40,9 +40,8 @@ char	*get_next_line(int fd)
 	static char	*left;
 	size_t		n;
 
-	printf("left is \"%s\"\n", left);
 	if (!left)
-		result = ft_strdup(""); //if there was no leftover, we just create empty string
+		left = ft_strdup(""); //if there was no leftover, we just create empty string
 	else //if there was leftover, we start from there
 	{
 		n = ft_charcheck(left, '\n');
@@ -55,8 +54,18 @@ char	*get_next_line(int fd)
 	}
 	mybuffer = ft_read(fd);
 	if(!mybuffer)
-		return (NULL);
+		return (left);
 	result = ft_strjoin(left, mybuffer->buf);
+	//printf("result is \"%s\"\n", result);
+	n = ft_charcheck(result, '\n');
+	if (n)
+	{
+		left = ft_substr(result, n, 200);
+		result = ft_substr(result, 0, n);
+		//printf("left is \"%s\"\n", left);
+	}
+	return (result);
+	/*
 	printf("result precheck: \"%s\"\n",result);
 	while (mybuffer && !mybuffer->n && !mybuffer->end) // while !\n and didn't reach the end of file in buf concatenate to result and read again
 	{
@@ -69,4 +78,5 @@ char	*get_next_line(int fd)
 	if (!mybuffer->end)
 		left = ft_substr(mybuffer->buf, mybuffer->n, BUFFER_SIZE); 
 	return (result);
+	*/
 }

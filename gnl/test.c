@@ -9,15 +9,10 @@ int main(void)
 	int j = 10;
 
 	fd = open("./testfiles/10lines.txt", O_RDONLY);
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	/*
 	while(j--)
 	{
 		printf("%s", get_next_line(fd));
 	}
-	*/
 /*
 	while (i < 7)
 	{
