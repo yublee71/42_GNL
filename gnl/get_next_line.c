@@ -11,72 +11,47 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-t_buf	*ft_read(int fd)
-{
-	ssize_t	rd_size;
-	t_buf	*result;
-
-	result = (t_buf *)malloc(sizeof(t_buf));
-	if (!result)
-		return (NULL);
-	rd_size = read(fd, result->buf, BUFFER_SIZE);
-	if (rd_size <= 0)
-		return (NULL);
-	result->buf[rd_size] = 0;
-	result->n = ft_charcheck(result->buf, '\n');
-	result->end = 0;
-	if (rd_size < BUFFER_SIZE)
-		result->end = 1;
-	return (result);
-}
-
-#include <stdio.h>
+#include <stdio.h> 
 
 char	*get_next_line(int fd)
 {
-	t_buf		*mybuffer;
-	char		*result;
-	static char	*left;
-	size_t		n;
+	static char		*stored;
+	char			*result;
+	char			rd_buf[BUFFER_SIZE + 1];
+	size_t			n;
+	ssize_t			rd_size;
 
-	if (!left)
-		left = ft_strdup(""); //if there was no leftover, we just create empty string
-	else //if there was leftover, we start from there
+	if (!stored)
 	{
-		n = ft_charcheck(left, '\n');
+		if (!(stored = ft_strdup("")))
+			return (NULL);
+	}
+	else
+	{
+		n = ft_charcheck(stored, '\n');
 		if (n)
 		{
-			result = ft_substr(left, 0, n);
-			left = ft_substr(left, n, BUFFER_SIZE);
+			if(!(result = ft_substr(stored, 0, n)))
+				return (NULL);
+			stored += n;
 			return (result);
 		}
 	}
-	mybuffer = ft_read(fd);
-	if(!mybuffer)
-		return (left);
-	result = ft_strjoin(left, mybuffer->buf);
-	//printf("result is \"%s\"\n", result);
-	n = ft_charcheck(result, '\n');
-	if (n)
+	rd_size = read(fd, rd_buf, BUFFER_SIZE);
+	rd_buf[BUFFER_SIZE] = 0;
+	if (rd_size < 0)
+		return (NULL);
+	else if (rd_size == 0)
 	{
-		left = ft_substr(result, n, 200);
-		result = ft_substr(result, 0, n);
-		//printf("left is \"%s\"\n", left);
+		if(!(result = ft_strdup(stored)))
+			return (NULL);
+		stored = NULL;
+		return (result);
 	}
-	return (result);
-	/*
-	printf("result precheck: \"%s\"\n",result);
-	while (mybuffer && !mybuffer->n && !mybuffer->end) // while !\n and didn't reach the end of file in buf concatenate to result and read again
+	else
 	{
-		result = ft_strjoin(result, mybuffer->buf);
-		mybuffer = ft_read(fd);
+		if(!(stored = ft_strjoin(stored, rd_buf)))
+			return (NULL);
+		return(get_next_line(fd));
 	}
-	//now there is \n or file end in buf
-	//concatenate until \n or \0 to result && store leftover in leftover
-    result = ft_substr(mybuffer->buf, 0, mybuffer->n);
-	if (!mybuffer->end)
-		left = ft_substr(mybuffer->buf, mybuffer->n, BUFFER_SIZE); 
-	return (result);
-	*/
 }
