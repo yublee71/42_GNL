@@ -11,7 +11,7 @@ int main(void)
 	fd = open("./testfiles/10lines.txt", O_RDONLY);
 	while(j--)
 	{
-		printf("%s", get_next_line(fd));
+		printf("line: %s", get_next_line(fd));
 	}
 /*
 	while (i < 7)
