@@ -25,34 +25,48 @@ t_buf	*ft_read(int fd)
 		return (NULL);
 	result->buf[rd_size] = 0;
 	result->n = ft_charcheck(result->buf, '\n');
+	result->end = 0;
 	if (rd_size < BUFFER_SIZE)
 		result->end = 1;
 	return (result);
 }
+
+#include <stdio.h>
 
 char	*get_next_line(int fd)
 {
 	t_buf		*mybuffer;
 	char		*result;
 	static char	*left;
+	size_t		n;
 
-	mybuffer = ft_read(fd);
-	if (left) //if there was leftover, we start from there and join buffer
-		result = ft_strjoin(result, mybuffer->buf);
-	else
-		result = ft_strdup(mybuffer->buf); //if there was no leftover, we just duplicate buffer
-	while (mybuffer) //if read succeeds
+	printf("left is \"%s\"\n", left);
+	if (!left)
+		result = ft_strdup(""); //if there was no leftover, we just create empty string
+	else //if there was leftover, we start from there
 	{
-		while (!mybuffer->n && !mybuffer->end && mybuffer) // while !\n and didn't reach the end of file in buf concatenate to result and read again
+		n = ft_charcheck(left, '\n');
+		if (n)
 		{
-			mybuffer = ft_read(fd);
-			result = ft_strjoin(result, mybuffer->buf);
+			result = ft_substr(left, 0, n);
+			left = ft_substr(left, n, BUFFER_SIZE);
+			return (result);
 		}
-		//now there is \n or file end in buf
-		//concatenate until \n or \0 to result && store leftover in leftover
-		ft_strlcat(result, mybuffer->buf, mybuffer->n);
-		if (!mybuffer->end)
-			left = ft_substr(mybuffer->buf, mybuffer->n + 1, BUFFER_SIZE);
-		}
+	}
+	mybuffer = ft_read(fd);
+	if(!mybuffer)
+		return (NULL);
+	result = ft_strjoin(left, mybuffer->buf);
+	printf("result precheck: \"%s\"\n",result);
+	while (mybuffer && !mybuffer->n && !mybuffer->end) // while !\n and didn't reach the end of file in buf concatenate to result and read again
+	{
+		result = ft_strjoin(result, mybuffer->buf);
+		mybuffer = ft_read(fd);
+	}
+	//now there is \n or file end in buf
+	//concatenate until \n or \0 to result && store leftover in leftover
+    result = ft_substr(mybuffer->buf, 0, mybuffer->n);
+	if (!mybuffer->end)
+		left = ft_substr(mybuffer->buf, mybuffer->n, BUFFER_SIZE); 
 	return (result);
 }
