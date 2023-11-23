@@ -23,7 +23,7 @@ char	*get_next_line(int fd)
 
 	if (!stored)
 	{
-		if (!(stored = ft_strdup("")))
+		if (!(stored = ""))
 			return (NULL);
 	}
 	else
@@ -33,6 +33,7 @@ char	*get_next_line(int fd)
 		{
 			if(!(result = ft_substr(stored, 0, n)))
 				return (NULL);
+			free(stored);
 			stored += n;
 			return (result);
 		}
@@ -42,12 +43,7 @@ char	*get_next_line(int fd)
 	if (rd_size < 0)
 		return (NULL);
 	else if (rd_size == 0)
-	{
-		if(!(result = ft_strdup(stored)))
-			return (NULL);
-		stored = NULL;
-		return (result);
-	}
+		return (stored);
 	else
 	{
 		if(!(stored = ft_strjoin(stored, rd_buf)))
