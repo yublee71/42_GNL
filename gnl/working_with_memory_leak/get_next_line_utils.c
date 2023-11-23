@@ -39,7 +39,7 @@ char	*ft_strdup(const char *s)
 	return (dest - srclen);
 }
 
-static char	*ft_strcat(char *dest, const char *src)
+/*static char	*ft_strcat(char *dest, const char *src)
 {
 	size_t	i;
 	size_t	j;
@@ -53,10 +53,11 @@ static char	*ft_strcat(char *dest, const char *src)
 	dest[i] = '\0';
 	return (dest);
 }
-
-char	*ft_strjoin(const char *s1, const char *s2)
+*/
+char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	charnum;
+	size_t	i;
 	char	*result;
 
 	if (!s1 || !s2)
@@ -65,9 +66,13 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	result = (char *)malloc(charnum + 1);
 	if (!result)
 		return (NULL);
-	*result = '\0';
-	result = ft_strcat(result, s1);
-	result = ft_strcat(result, s2);
+	i = -1;
+	while (s1[++i])
+		result[i] = s1[i];
+	i = -1;
+	while (s2[++i])
+		result[ft_strlen(s1)+i] = s2[i];
+	result[charnum] = 0;
 	return (result);
 }
 
