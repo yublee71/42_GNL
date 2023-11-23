@@ -35,13 +35,15 @@ char	*get_next_line(int fd)
 			if(!(result = ft_substr(stored, 0, n)))
 				return (NULL);
 			stored += n;
+			if (!*stored)
+				stored = NULL; 
 			return (result);
 		}
 	}
 	rd_size = read(fd, rd_buf, BUFFER_SIZE);
 //	printf("rd_size is: %ld\n", rd_size);
 	rd_buf[BUFFER_SIZE] = 0;
-//	printf("buf is %s\n", rd_buf);
+//	printf("buf is \"%s\"\n", rd_buf);
 	if (rd_size < 0)
 		return (NULL);
 	else if (rd_size == 0)
