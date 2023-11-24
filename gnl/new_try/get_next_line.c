@@ -14,5 +14,11 @@
 
 char	*get_next_line(int fd)
 {
+	static char	*left;
+	char		*buffer;
 
+	read(fd, buffer, BUFFER_SIZE);
+	//left buffer join
+	//if there is no /n -> 
+	//if there is /n
 }
