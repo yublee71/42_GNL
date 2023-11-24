@@ -29,7 +29,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	char		*buffer;
 	size_t		n;
-//	ssize_t		rd_size;
+	ssize_t		rd_size;
 
 /*
 	rd_size = read(fd, buffer, BUFFER_SIZE);
@@ -57,15 +57,18 @@ char	*get_next_line(int fd)
 	}
 	else
 	{
-		if (read(fd, buffer, BUFFER_SIZE))
+		while ((rd_size = read(fd, buffer, BUFFER_SIZE)))
 		{
 			buffer[BUFFER_SIZE] = '\0';
 //			printf("buf is \"%s\"\n", buffer);
 			temp = stored;
 			stored = ft_strjoin(stored, buffer); //needs to free
 			free(temp);
-			free(buffer);
-			return (get_next_line(fd));
+			if (ft_charcheck(buffer, '\n'))
+			{
+				free(buffer);
+				return (get_next_line(fd));
+			}
 		}
 //		printf("stored is \"%s\"\n", stored);
 		if (*stored)
