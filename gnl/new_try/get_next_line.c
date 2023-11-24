@@ -39,7 +39,7 @@ char	*get_next_line(int fd)
 	return("");
 	*/
 //	printf("stored is: \"%s\"\n", stored);
-	if (fd <= 3 || fd >= 1000 || BUFFER_SIZE < 0)
+	if (fd < 0 || fd == 2 || fd == 3 || fd >= 1000 || BUFFER_SIZE < 0)
 		return (NULL);
 	buffer = (char *)calloc(BUFFER_SIZE + 1, 1);
 	if (!stored)
