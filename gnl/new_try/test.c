@@ -19,7 +19,7 @@ int main(void)
 			return (0);
 		}
 		while (linelength[i]--)
-			printf("%s",get_next_line(fd));
+			printf("return: %s",get_next_line(fd));
 		close(fd);
 		i++;
 		printf("\n");
