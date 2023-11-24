@@ -57,23 +57,15 @@ char	*get_next_line(int fd)
 	}
 	else
 	{
-		while (read(fd, buffer, BUFFER_SIZE))
+		if (read(fd, buffer, BUFFER_SIZE))
 		{
 			buffer[BUFFER_SIZE] = '\0';
 //			printf("buf is \"%s\"\n", buffer);
 			temp = stored;
 			stored = ft_strjoin(stored, buffer); //needs to free
 			free(temp);
-			if (ft_charcheck(buffer, '\n'))
-			{
-				line = ft_substr(stored, 0, ft_charcheck(stored, '\n'));
-				temp = stored;
-				stored = ft_substr(stored, ft_charcheck(stored, '\n'), ft_strlen(stored)); //needs to free
-				free(temp);
-				free(buffer);
-				return (line);
-			}
-			ft_wipe(buffer, BUFFER_SIZE);
+			free(buffer);
+			return (get_next_line(fd));
 		}
 //		printf("stored is \"%s\"\n", stored);
 		if (*stored)
