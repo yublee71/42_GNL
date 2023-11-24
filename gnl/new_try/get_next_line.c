@@ -39,6 +39,8 @@ char	*get_next_line(int fd)
 	return("");
 	*/
 //	printf("stored is: \"%s\"\n", stored);
+	if (fd <= 0)
+		return (NULL);
 	if (!stored)
 		if (!(stored = ft_strdup("")))
 			return (NULL);
@@ -74,8 +76,8 @@ char	*get_next_line(int fd)
 		if (stored)
 		{
 			line = ft_strdup(stored);
-			stored = NULL;
 			free(stored);
+			stored = NULL;
 			return(line);
 		}
 		return (NULL);
