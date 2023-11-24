@@ -27,7 +27,7 @@ char	*get_next_line(int fd)
 	static char	*stored;
 	char		*temp;
 	char		*line;
-	char		buffer[BUFFER_SIZE + 1];
+	char		*buffer;
 	size_t		n;
 //	ssize_t		rd_size;
 
@@ -39,8 +39,9 @@ char	*get_next_line(int fd)
 	return("");
 	*/
 //	printf("stored is: \"%s\"\n", stored);
-	if (fd <= 0)
+	if (fd <= 3 || fd >= 1000 || BUFFER_SIZE < 0)
 		return (NULL);
+	buffer = (char *)calloc(BUFFER_SIZE + 1, 1);
 	if (!stored)
 		if (!(stored = ft_strdup("")))
 			return (NULL);
@@ -51,6 +52,7 @@ char	*get_next_line(int fd)
 		temp = stored;
 		stored = ft_substr(stored, n, ft_strlen(stored)); //needs to free
 		free(temp);
+		free(buffer);
 		return (line);
 	}
 	else
@@ -62,24 +64,28 @@ char	*get_next_line(int fd)
 			temp = stored;
 			stored = ft_strjoin(stored, buffer); //needs to free
 			free(temp);
-			n = ft_charcheck(stored, '\n');
-			if (n)
+			if (ft_charcheck(buffer, '\n'))
 			{
-				line = ft_substr(stored, 0, n);
+				line = ft_substr(stored, 0, ft_charcheck(stored, '\n'));
 				temp = stored;
-				stored = ft_substr(stored, n, ft_strlen(stored)); //needs to free
+				stored = ft_substr(stored, ft_charcheck(stored, '\n'), ft_strlen(stored)); //needs to free
 				free(temp);
+				free(buffer);
 				return (line);
 			}
-			ft_wipe(buffer, BUFFER_SIZE + 1);
+			ft_wipe(buffer, BUFFER_SIZE);
 		}
-		if (stored)
+//		printf("stored is \"%s\"\n", stored);
+		if (*stored)
 		{
 			line = ft_strdup(stored);
+//			printf("line: \"%s\"\n", line);
 			free(stored);
 			stored = NULL;
-			return(line);
+			free(buffer);
+			return (line);
 		}
+		free(buffer);
 		return (NULL);
 	}
 }
