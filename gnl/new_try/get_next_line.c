@@ -13,15 +13,6 @@
 #include "get_next_line.h"
 #include <stdio.h> 
 
-void	ft_wipe(char *s, size_t a)
-{
-	size_t i;
-
-	i = 0;
-	while (i < a)
-		s[i++] = 0;
-}
-
 char	*get_next_line(int fd)
 {
 	static char	*stored;
