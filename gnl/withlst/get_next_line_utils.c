@@ -152,3 +152,21 @@ char	*ft_strdup(const char *s)
 	*dest = '\0';
 	return (dest - srclen);
 }
+
+char	*ft_strcat(char *dst, char *src, size_t n)
+{
+	size_t	i;
+	size_t	j;
+	i = 0;
+	j = 0;
+
+	while (dst[i])
+		i++;
+	while (src[j] && n--)
+	{
+		dst[i + j] = src[j];
+		j++;
+	}
+	dst[i + j] = '\0';
+	return (dst);
+}
