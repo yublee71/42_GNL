@@ -97,12 +97,14 @@ size_t	ft_lstsize(t_buf *lst)
 	size_t	count;
 	t_buf	*temp;
 
+	printf(":");
 	if (!lst)
 		return (0);
 	count = 1;
 	temp = lst->next;
 	while (temp)
 	{
+//		printf(":");
 		count++;
 		temp = temp->next;
 	}
