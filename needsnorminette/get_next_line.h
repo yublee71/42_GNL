@@ -26,7 +26,7 @@ size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s);
 size_t	ft_charcheck(char *s, char c);
 char	*ft_substr(char *s, size_t start, size_t len);
-char	*ft_strjoin(char *s1, char *s2);
+char	*ft_f_strjoin(char *s1, char *s2);
 //char	*ft_seperate_by_linebreak(size_t n, char *stored, char *buffer);
 
 #endif

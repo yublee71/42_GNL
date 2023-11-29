@@ -6,7 +6,7 @@
 /*   By: yublee <yublee@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:25:07 by yublee            #+#    #+#             */
-/*   Updated: 2023/11/21 21:57:50 by yublee           ###   ########.fr       */
+/*   Updated: 2023/11/29 20:35:52 by yublee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	*ft_substr(char *s, size_t start, size_t len)
 	return (substring);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_f_strjoin(char *s1, char *s2)
 {
 	size_t	charnum;
 	size_t	i;
@@ -104,5 +104,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2[++i])
 		result[ft_strlen(s1)+i] = s2[i];
 	result[charnum] = 0;
+	free(s1);
 	return (result);
 }
