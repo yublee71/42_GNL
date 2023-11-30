@@ -6,38 +6,38 @@
 /*   By: yublee <yublee@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:24:09 by yublee            #+#    #+#             */
-/*   Updated: 2023/11/21 22:32:44 by yublee           ###   ########.fr       */
+/*   Updated: 2023/11/30 15:19:52 by yublee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*get_line(char *stored)
+char	*ft_store_until_newline(char *stored)
 {
 	char	*temp;
 	size_t	i;
 
 	i = ft_charcheck(stored, '\n');
 	temp = stored;
-	stored = ft_substr(stored, i, ft_strlen(stored)); //needs to free
+	stored = ft_substr(stored, i, ft_strlen(stored));
 	free(temp);
 	return (stored);
 }
 
-char	*ft_free(char *s1, char* s2)
+char	*ft_free(char *s1, char *s2)
 {
 	free(s1);
 	free(s2);
 	return (NULL);
 }
 
-char*	ft_initialize(char *stored, int fd)
+char	*ft_initialize(char *stored, int fd)
 {
 	if (!stored)
 	{
 		stored = ft_strdup("");
 		if (!stored)
-		return (NULL);
+			return (NULL);
 	}
 	if ((fd && fd < 3) || fd >= 1000 || BUFFER_SIZE < 0)
 	{
@@ -46,24 +46,22 @@ char*	ft_initialize(char *stored, int fd)
 	}	
 	return (stored);
 }
-/*
-char	*ft_read(int fd, char *stored)
-{
-	char		*buffer;
 
-	buffer = (char *)calloc(BUFFER_SIZE + 1, 1);
-	if (!buffer)
-		return (NULL);
-	if (read(fd, buffer, BUFFER_SIZE))
+size_t	ft_charcheck(char *s, char c)
+{
+	size_t	i;
+
+	if (!s)
+		return (0);
+	i = 0;
+	while (s[i])
 	{
-		stored = ft_f_strjoin(stored, buffer);
-		free(buffer);
-		return (stored);
+		if (s[i] == c)
+			return (i + 1);
+		i++;
 	}
-	free(buffer);
-	return (NULL);
+	return (0);
 }
-*/
 
 char	*get_next_line(int fd)
 {
@@ -74,10 +72,11 @@ char	*get_next_line(int fd)
 	stored = ft_initialize(stored, fd);
 	line = ft_substr(stored, 0, ft_charcheck(stored, '\n'));
 	if (ft_charcheck(stored, '\n'))
-		stored = get_line(stored);
+		stored = ft_store_until_newline(stored);
 	else if (stored)
-	{ 
-		buffer = (char *)calloc(BUFFER_SIZE + 1, 1);
+	{
+		buffer = (char *)malloc(BUFFER_SIZE + 1, 1);
+		buffer[BUFFER_SIZE] = 0;
 		if (read(fd, buffer, BUFFER_SIZE))
 		{
 			stored = ft_f_strjoin(stored, buffer);
