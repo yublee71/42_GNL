@@ -30,6 +30,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	char		*buffer;
 
+	line = NULL;
 	if (!stored)
 		stored = ft_strdup("");
 	if ((fd && fd <= 3) || fd >= 1000 || BUFFER_SIZE < 0 || !stored)
@@ -43,17 +44,13 @@ char	*get_next_line(int fd)
 	buffer = (char *)calloc(BUFFER_SIZE + 1, 1);
 	if (read(fd, buffer, BUFFER_SIZE))
 	{
-		stored = ft_f_strjoin(stored, buffer); //needs to free
+		stored = ft_f_strjoin(stored, buffer);
 		return (get_next_line(fd));
 	}
 	if (*stored)
-	{
 		line = ft_strdup(stored);
-		free(stored);
-		free(buffer);
-		stored = NULL;
-		return (line);
-	}
+	free(stored);
 	free(buffer);
-	return (NULL);
+	stored = NULL;
+	return (line);
 }
