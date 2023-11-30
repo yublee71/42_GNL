@@ -39,7 +39,7 @@ char*	ft_initialize(char *stored, int fd)
 		if (!stored)
 		return (NULL);
 	}
-	if ((fd && fd <= 3) || fd >= 1000 || BUFFER_SIZE < 0)
+	if ((fd && fd < 3) || fd >= 1000 || BUFFER_SIZE < 0)
 	{
 		free(stored);
 		return (NULL);
@@ -73,13 +73,10 @@ char	*get_next_line(int fd)
 
 	stored = ft_initialize(stored, fd);
 	line = ft_substr(stored, 0, ft_charcheck(stored, '\n'));
-	if (stored)
+	if (ft_charcheck(stored, '\n'))
+		stored = get_line(stored);
+	else if (stored)
 	{ 
-		if(ft_charcheck(stored, '\n'))
-		{
-			stored = get_line(stored);
-			return (line);
-		}
 		buffer = (char *)calloc(BUFFER_SIZE + 1, 1);
 		if (read(fd, buffer, BUFFER_SIZE))
 		{
