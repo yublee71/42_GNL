@@ -46,6 +46,8 @@ size_t	ft_charcheck(char *s, char c)
 {
 	size_t	i;
 
+	if (!s)
+		return (0);
 	i = 0;
 	while (s[i])
 	{
@@ -68,7 +70,9 @@ char	*ft_substr(char *s, size_t start, size_t len)
 	i = start;
 	j = 0;
 	strlen = ft_strlen(s);
-	if (!strlen || !len || start > strlen)
+	if (!len)
+		return (NULL);
+	if (!strlen || start > strlen)
 	{
 		substring = ft_strdup("");
 		return (substring);
