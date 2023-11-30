@@ -6,7 +6,7 @@
 /*   By: yublee <yublee@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:24:09 by yublee            #+#    #+#             */
-/*   Updated: 2023/11/30 15:19:52 by yublee           ###   ########.fr       */
+/*   Updated: 2023/11/30 16:56:38 by yublee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,14 @@ char	*ft_free(char *s1, char *s2)
 
 char	*ft_initialize(char *stored, int fd)
 {
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
 	if (!stored)
 	{
 		stored = ft_strdup("");
 		if (!stored)
 			return (NULL);
 	}
-	if ((fd && fd < 3) || fd >= 1000 || BUFFER_SIZE < 0)
-	{
-		free(stored);
-		return (NULL);
-	}	
 	return (stored);
 }
 
@@ -68,6 +65,7 @@ char	*get_next_line(int fd)
 	static char	*stored;
 	char		*line;
 	char		*buffer;
+	ssize_t		rd_size;
 
 	stored = ft_initialize(stored, fd);
 	line = ft_substr(stored, 0, ft_charcheck(stored, '\n'));
@@ -75,13 +73,13 @@ char	*get_next_line(int fd)
 		stored = ft_store_until_newline(stored);
 	else if (stored)
 	{
-		buffer = (char *)malloc(BUFFER_SIZE + 1, 1);
-		buffer[BUFFER_SIZE] = 0;
-		if (read(fd, buffer, BUFFER_SIZE))
-		{
-			stored = ft_f_strjoin(stored, buffer);
+		buffer = ft_malloc(BUFFER_SIZE + 1);
+		rd_size = read(fd, buffer, BUFFER_SIZE);
+		if (rd_size < 0)
+			return (ft_free(buffer, stored));
+		stored = ft_f_strjoin(stored, buffer);
+		if (rd_size > 0)
 			return (get_next_line(fd));
-		}
 		if (*stored)
 			line = ft_strdup(stored);
 		stored = ft_free(stored, buffer);

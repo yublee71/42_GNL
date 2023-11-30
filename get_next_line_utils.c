@@ -6,7 +6,7 @@
 /*   By: yublee <yublee@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:25:07 by yublee            #+#    #+#             */
-/*   Updated: 2023/11/30 15:21:28 by yublee           ###   ########.fr       */
+/*   Updated: 2023/11/30 16:56:21 by yublee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,20 @@ char	*ft_substr(char *s, size_t start, size_t len)
 	return (substring);
 }
 
+char	*ft_malloc(size_t n)
+{
+	char	*result;
+	size_t	i;
+
+	result = (char *)malloc(n);
+	if (!result)
+		return (NULL);
+	i = 0;
+	while (i < n)
+		*((unsigned char *)result + i++) = 0;
+	return (result);
+}
+
 char	*ft_f_strjoin(char *s1, char *s2)
 {
 	size_t	charnum;
@@ -79,6 +93,8 @@ char	*ft_f_strjoin(char *s1, char *s2)
 
 	if (!s1 || !s2)
 		return (NULL);
+	if (!*s2)
+		return (s1);
 	charnum = ft_strlen(s1) + ft_strlen(s2);
 	result = (char *)malloc(charnum + 1);
 	if (!result)
