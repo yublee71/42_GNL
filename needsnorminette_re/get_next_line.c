@@ -27,7 +27,6 @@ char	*get_line(char *stored)
 char	*get_next_line(int fd)
 {
 	static char	*stored;
-	char		*temp;
 	char		*line;
 	char		*buffer;
 
@@ -44,11 +43,7 @@ char	*get_next_line(int fd)
 	buffer = (char *)calloc(BUFFER_SIZE + 1, 1);
 	if (read(fd, buffer, BUFFER_SIZE))
 	{
-		buffer[BUFFER_SIZE] = '\0';
-		temp = stored;
-		stored = ft_strjoin(stored, buffer); //needs to free
-		free(temp);
-		free(buffer);
+		stored = ft_f_strjoin(stored, buffer); //needs to free
 		return (get_next_line(fd));
 	}
 	if (*stored)
