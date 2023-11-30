@@ -24,6 +24,13 @@ char	*get_line(char *stored)
 	return (stored);
 }
 
+char *	ft_free(char *s1, char *s2)
+{
+	free(s1);
+	free(s2);
+	return (NULL);
+}
+
 char	*get_next_line(int fd)
 {
 	static char	*stored;
@@ -49,8 +56,6 @@ char	*get_next_line(int fd)
 	}
 	if (*stored)
 		line = ft_strdup(stored);
-	free(stored);
-	free(buffer);
-	stored = NULL;
+	stored = ft_free(stored, buffer);
 	return (line);
 }
