@@ -78,7 +78,10 @@ char	*get_next_line(int fd)
 		buffer = ft_malloc(BUFFER_SIZE + 1);
 		rd_size = read(fd, buffer, BUFFER_SIZE);
 		if (rd_size < 0)
-			return (ft_free(buffer, stored[fd]));
+		{
+			stored[fd] = ft_free(stored[fd], buffer);
+			return (stored[fd]);
+		}
 		stored[fd] = ft_f_strjoin(stored[fd], buffer);
 		if (rd_size > 0)
 			return (get_next_line(fd));
