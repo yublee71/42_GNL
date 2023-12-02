@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_store_until_newline(char *stored)
 {
@@ -62,7 +62,7 @@ size_t	ft_charcheck(char *s, char c)
 
 char	*get_next_line(int fd)
 {
-	static char	*stored[4096];
+	static char	*stored[FDMAX];
 	char		*line;
 	char		*buffer;
 	ssize_t		rd_size;
