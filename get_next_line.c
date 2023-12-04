@@ -62,30 +62,29 @@ size_t	ft_charcheck(char *s, char c)
 
 char	*get_next_line(int fd)
 {
-	static char	*stored;
-	char		*line;
+	static t_strings	*str;
 	char		*buffer;
 	ssize_t		rd_size;
 
-	stored = ft_initialize(stored, fd);
-	line = ft_substr(stored, 0, ft_charcheck(stored, '\n'));
-	if (ft_charcheck(stored, '\n'))
-		stored = ft_store_until_newline(stored);
-	else if (stored)
+	str->stored = ft_initialize(str->stored, fd);
+	str->line = ft_substr(str->stored, 0, ft_charcheck(str->stored, '\n'));
+	if (ft_charcheck(str->stored, '\n'))
+		str->stored = ft_store_until_newline(str->stored);
+	else if (str->stored)
 	{
 		buffer = ft_malloc(BUFFER_SIZE + 1);
 		rd_size = read(fd, buffer, BUFFER_SIZE);
 		if (rd_size < 0)
 		{
-			stored = ft_free(stored, buffer);
-			return (stored);
+			str->stored = ft_free(str->stored, buffer);
+			return (str->stored);
 		}
-		stored = ft_f_strjoin(stored, buffer);
+		str->stored = ft_f_strjoin(str->stored, buffer);
 		if (rd_size > 0)
 			return (get_next_line(fd));
-		if (*stored)
-			line = ft_strdup(stored);
-		stored = ft_free(stored, buffer);
+		if (*str->stored)
+			str->line = ft_strdup(str->stored);
+		str->stored = ft_free(str->stored, buffer);
 	}
-	return (line);
+	return (str->line);
 }
