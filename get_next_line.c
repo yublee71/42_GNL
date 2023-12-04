@@ -6,7 +6,7 @@
 /*   By: yublee <yublee@student.42london.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 15:24:09 by yublee            #+#    #+#             */
-/*   Updated: 2023/11/30 16:56:38 by yublee           ###   ########.fr       */
+/*   Updated: 2023/12/04 22:28:48 by yublee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ char	*ft_store_until_newline(char *stored)
 	return (stored);
 }
 
-char	*ft_free(char *s1, char *s2)
+void	*ft_free(char **s1, char *s2)
 {
-	free(s1);
+	free(*s1);
 	free(s2);
+	*s1 = NULL;
 	return (NULL);
 }
 
@@ -76,16 +77,13 @@ char	*get_next_line(int fd)
 		buffer = ft_malloc(BUFFER_SIZE + 1);
 		rd_size = read(fd, buffer, BUFFER_SIZE);
 		if (rd_size < 0)
-		{
-			stored = ft_free(stored, buffer);
-			return (stored);
-		}
+			return (ft_free(&stored, buffer));
 		stored = ft_f_strjoin(stored, buffer);
 		if (rd_size > 0)
 			return (get_next_line(fd));
 		if (*stored)
 			line = ft_strdup(stored);
-		stored = ft_free(stored, buffer);
+		stored = ft_free(&stored, buffer);
 	}
 	return (line);
 }

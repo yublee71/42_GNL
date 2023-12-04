@@ -24,10 +24,11 @@ char	*ft_store_until_newline(char *stored)
 	return (stored);
 }
 
-char	*ft_free(char *s1, char *s2)
+void	*ft_free(char **s1, char *s2)
 {
-	free(s1);
+	free(*s1);
 	free(s2);
+	*s1 = NULL;
 	return (NULL);
 }
 
@@ -78,16 +79,13 @@ char	*get_next_line(int fd)
 		buffer = ft_malloc(BUFFER_SIZE + 1);
 		rd_size = read(fd, buffer, BUFFER_SIZE);
 		if (rd_size < 0)
-		{
-			stored[fd] = ft_free(stored[fd], buffer);
-			return (stored[fd]);
-		}
+			return (ft_free(&stored[fd], buffer));
 		stored[fd] = ft_f_strjoin(stored[fd], buffer);
 		if (rd_size > 0)
 			return (get_next_line(fd));
 		if (*stored[fd])
 			line = ft_strdup(stored[fd]);
-		stored[fd] = ft_free(stored[fd], buffer);
+		stored[fd] = ft_free(&stored[fd], buffer);
 	}
 	return (line);
 }
