@@ -21,11 +21,6 @@
 # include <fcntl.h>
 # include <stdlib.h>
 
-typedef struct s_strings{
-	char	*stored;
-	char	*line;
-}	t_strings;
-
 char	*get_next_line(int fd);
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s);
