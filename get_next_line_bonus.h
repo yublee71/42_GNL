@@ -17,7 +17,7 @@
 #  define BUFFER_SIZE 5
 # endif
 
-# define FDMAX 4096
+# define FDMAX 1024
 
 # include <unistd.h>
 # include <fcntl.h>
